@@ -1,0 +1,55 @@
+.gdbar img {
+  width: 200px !important;
+  height: 54px !important;
+}
+
+.gdbar {
+  color: white !important;
+  background: white !important;
+  background-size: 200px 54px;
+  position: absolute !important;
+  left: 875px !important;
+  top: 17px !important;
+}
+
+slides > slide:not(.nobackground):before {
+  width: 200px;
+  height: 54px;
+  background-size: 200px 54px;
+  position: absolute !important;
+  left: 875px !important;
+  top: 25px !important;
+}
+
+body {
+  background: white;
+  background-color: black;
+}
+
+slides > slide {
+  background: black !important;
+  background-color: white !important;
+  color: #151515 !important;
+}
+
+slides > slide.dark {
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(85%, #ffffff), color-stop(100%, #e6e6e6)) !important;
+  background: -webkit-linear-gradient(#ffffff, #ffffff 85%, #e6e6e6) !important;
+  background: -moz-linear-gradient(#ffffff, #ffffff 85%, #e6e6e6) !important;
+  background: -o-linear-gradient(#ffffff, #ffffff 85%, #e6e6e6) !important;
+  background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6) !important;
+  background-color: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6) !important;
+}
+
+h1, h2, h3 {
+  color: #490092 !important;
+}
+
+h4 {
+  font-size: 16px;
+}
+
+#refs {
+	font-size: 12px;
+  margin: 5px;
+}
