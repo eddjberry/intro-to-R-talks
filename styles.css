@@ -32,13 +32,12 @@ slides > slide {
   color: #151515 !important;
 }
 
+slides > slide.title-slide hgroup p {
+  color: #151515 !important;
+}
+
 slides > slide.dark {
-  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ffffff), color-stop(85%, #ffffff), color-stop(100%, #e6e6e6)) !important;
-  background: -webkit-linear-gradient(#ffffff, #ffffff 85%, #e6e6e6) !important;
-  background: -moz-linear-gradient(#ffffff, #ffffff 85%, #e6e6e6) !important;
-  background: -o-linear-gradient(#ffffff, #ffffff 85%, #e6e6e6) !important;
-  background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6) !important;
-  background-color: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6) !important;
+  background: white !important;
 }
 
 h1, h2, h3 {
