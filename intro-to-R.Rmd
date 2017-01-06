@@ -47,9 +47,9 @@ knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
 ## Why R? | Pretty graphs
 
 <div align = "center", class="columns-2">
-  <img src="figures/eg1.png" height=490>
+  <img src="../figures/eg1.png" height=490>
 
-  <img src="figures/eg2.png" height=470>
+  <img src="../figures/eg2.png" height=470>
   
 </div>   
 
@@ -173,7 +173,7 @@ ggplot(df, aes(x, y, colour = treatment)) +
 
 <div align = "center">
 
-  <img src="figures/cowplot-eg.png" height=530>
+  <img src="../figures/cowplot-eg.png" height=530>
   
 </div> 
 
@@ -398,7 +398,7 @@ browseVignettes(package = "tidyverse")
   
 <div align = "center">
 
-  <img src="figures/vignettes2.png" height=150>
+  <img src="../figures/vignettes2.png" height=150>
   
 </div> 
   
@@ -406,7 +406,7 @@ browseVignettes(package = "tidyverse")
 ## Recommended resources | Finding vignettes via Googling
 <div align = "center">
 
-  <img src="figures/vignettes.png" height=450>
+  <img src="../figures/vignettes.png" height=450>
   
 </div> 
     
