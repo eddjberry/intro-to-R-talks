@@ -17,6 +17,7 @@ library(knitr)
 library(tidyverse)
 library(ggthemes)
 library(RColorBrewer)
+library(broom)
 
 knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
 
@@ -46,9 +47,9 @@ knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
 ## Why R? | Pretty graphs
 
 <div align = "center", class="columns-2">
-  <img src="../figures/eg1.png" height=490>
+  <img src="figures/eg1.png" height=490>
 
-  <img src="../figures/eg2.png" height=470>
+  <img src="figures/eg2.png" height=470>
   
 </div>   
 
@@ -59,11 +60,16 @@ knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
 + Documents
     + Including books
 + Interactive HTML applications 
-+ R has the [happiest commenters](https://hackernoon.com/which-programming-languages-have-the-happiest-and-angriest-commenters-ebe91b3852ed#.fpgwgsb03)
+
 
 ## Why R? | Reproducibility... again
 + R projects
 + R Markdown
+
+## Why R
++ It's free
++ Big community 
++ R has the [happiest commenters](https://hackernoon.com/which-programming-languages-have-the-happiest-and-angriest-commenters-ebe91b3852ed#.fpgwgsb03)
 
 # Recommended packages 
 
@@ -80,21 +86,23 @@ knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
     + Importing data (readr)
     + Functional programming (purrr)
         + See [here](https://blog.rstudio.org/2016/09/15/tidyverse-1-0-0/) for a full list of the included packages
-+ These packages are all designed to work nicely together 
++ These packages are all designed to work nicely together
++ More readable by people than most R code
 
 ## Installing tidyverse
-+ To install any package you just do:
++ To install and load any package you just do:
 
 ```{r, eval = FALSE, echo = T}
 install.packages("tidyverse")
 library(tidyverse)
 ```
-+ You need to load a package in with library for any new R session you want to use it with
++ You need to load a package in with `library()` for any new R session you want to use it with
 + Loading tidyverse loads all the packages described previously
 
 ## Recommended packages | The pipe operator
 + The pipe operator is key to why the tidyverse packages are so usable and readable
 + It passed the thing on its left as the first argument to a function on its right
+    + x %>% f() is equivalent to f(x)
   
 ```{r, echo = T}
 x <- c(10, 5, 15)
@@ -116,18 +124,23 @@ y = x*3 + rnorm(100, sd = 5)
 
 df <- as_tibble(list(x = x, 
                    y = y,
-                   group = rep(c("group1", "group2"), each = 50)))
+                   treatment = rep(c("treatment_1", "treatment_2"), each = 50)))
 ```
 
 ## ggplot2 | qplot
 ```{r, echo = T}
-qplot(x = x, y = y, data = df) + 
+qplot(x = df$x, y = df$y)
+```
+
+## ggplot2 | qplot
+```{r, echo = T}
+qplot(df$x, df$y) + 
   geom_smooth(method = "lm")
 ```
 
 ## ggplot2 | ggplot
 ```{r, echo = T}
-ggplot(data = df, aes(x = x, y = y)) +
+ggplot(data = df, mapping = aes(x = x, y = y)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
@@ -135,7 +148,7 @@ ggplot(data = df, aes(x = x, y = y)) +
 ## ggplot2 | ggplot
 
 ```{r, echo = TRUE}
-ggplot(data = df, aes(x = x, y = y, colour = group)) +
+ggplot(data = df, mapping = aes(x = x, y = y, colour = treatment)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
@@ -149,7 +162,7 @@ ggplot(data = df, aes(x = x, y = y, colour = group)) +
 ## ggplot2 | Other tips
 
 ```{r, echo = TRUE}
-ggplot(data = df, aes(x = x, y = y, colour = group)) +
+ggplot(df, aes(x, y, colour = treatment)) +
   geom_point() +
   geom_smooth(method = "lm") +
   theme_few() +
@@ -160,14 +173,16 @@ ggplot(data = df, aes(x = x, y = y, colour = group)) +
 
 <div align = "center">
 
-  <img src="../figures/cowplot-eg.png" height=530>
+  <img src="figures/cowplot-eg.png" height=530>
   
 </div> 
 
 ## Data visualisation | Other options
 + Three main options for data visualation: `base`, `lattice`, and `ggplot2`
-+ `base` is the quickest to learn and automatically produces certain plots when called on certain objects
++ `base` automatically produces certain plots when called on certain objects
     + e.g. calling `plot()` on a regression model object will produce diagnostic plots
++ In my view `ggplot2` is the easiest to learn - but that's probably because it the only one I'm good at!
+    + See these posts for arguments [for](http://varianceexplained.org/r/why-I-use-ggplot2/) and [against](http://simplystatistics.org/2016/02/11/why-i-dont-use-ggplot2/) `ggplot2` over `base` for plots
 
 ## dplyr | overview
 + `dplyr` is designed around a set of basic 'verbs':
@@ -200,11 +215,11 @@ head(df1, 10)
 sum_stats <- df1 %>%
   filter(stage == "test") %>%
   mutate(cond_diff = cond1 - cond2) %>%
-  select(cond_diff, group) %>%
   group_by(group) %>%
   summarise(mean = mean(cond_diff),
             sd = sd(cond_diff),
-            se  = sd/sqrt(n()))
+            n = n(),
+            se  = sd/sqrt(n))
 ```
 
 ```{r}
@@ -216,8 +231,8 @@ sum_stats
 + The functions you're likely to use most are the `map()` functions
     + Apply a function to a list, vector or dataframe
     + Have versions where you specific the class of object you're expecting back
-        + Much 'safer' than the apply family
-        + Either work or break with an informative error message
+        + 'Safer' than the `apply` family
+            + Either work or break with an informative error message
 + Lots of other functions that are useful for writing your own functions
 + Cool purrr tutorial [here](https://jennybc.github.io/purrr-tutorial/)
 
@@ -236,7 +251,7 @@ df <- map_df(list, read_csv)
 + E.g. suppose we have the wide data from before
 
 ```{r}
-head(df1)
+head(df1 %>% filter(stage == "test"))
 ```
 
 ## tidyr | Example
@@ -252,6 +267,29 @@ df1_long <- df1 %>%
 head(df1_long)
 ``` 
 
+## Recommended packages | broom
++ For cleaning up the outputs of modelling functions [(vignette)](ftp://cran.r-project.org/pub/R/web/packages/broom/vignettes/broom.html)
++ Work very well with dplyr [(vignette)](ftp://cran.r-project.org/pub/R/web/packages/broom/vignettes/broom_and_dplyr.html)
+
+```{r}
+year <- rep(c("five", "two"), each = 30)
+memory <- rnorm(60)
+attention <- rnorm(60)
+attainment <- memory * 1 + attention * 0.8 + rnorm(60)
+
+df2 <- as_tibble(list(id = 1:60, year = year, memory =memory, attention = attention, attainment = attainment))
+
+head(df2, 8)
+```
+
+## Recommended packages | broom example (adapted from vignette)
+
+```{r, echo = T}
+df2 %>%
+  group_by(year) %>%
+  do(tidy(lm(attainment ~ memory + attention, data = .)))
+
+```
 
 ## Recommended packages | rmarkdown
 + `rmarkdown` provides a range of tools for creating dynamic documents in R [(see this intro)](http://rmarkdown.rstudio.com/lesson-1.html) 
@@ -264,14 +302,15 @@ head(df1_long)
     + See [here](http://rmarkdown.rstudio.com/formats.html) for a full list of formats
 
 ## Recommended packages | rmarkdown
+
 + Code can be embedded to make reproducible reports  
   
-    
-`` `r inline_expr("nrow(wide)")` `` participants took part in Experiment 1 (Mean age = `` `r        inline_expr("round(mean(wide$age), 2)")` ``, SD = `` `r  inline_expr("round(sd(wide$age), 2)")` ``).
-  
+\     
 **74** participants took part in Experiment 1 (Mean age = **8.65**, SD = **1.32**).  
-     
-                           
+
+`` `r inline_expr("nrow(wide)")` `` participants took part in Experiment 1 (Mean age = `` `r        inline_expr("round(mean(wide$age), 2)")` ``, SD = `` `r  inline_expr("round(sd(wide$age), 2)")` ``). 
+  
+\     
 + See [here](https://github.com/eddjberry/cutoff) for a useful function I've written for rounding values in R Markdown
 
 ## General tips | R Studio
@@ -312,6 +351,7 @@ read_csv("data/exp-data-07-16.csv")
 source("../scripts/data-processing.R")  
 ```
 
++ `"../"` tells it to start at the parent folder of the current working directory
 
 ## General tips | Reuse and improve
 + Obviously the point of writing scripts is that they can be reused
@@ -344,6 +384,8 @@ source("../scripts/data-processing.R")
     + You'll end up there by Googling a question
 + [R Studio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 + R Studio R Markdown [website](http://rmarkdown.rstudio.com/)
++ There are loads of good blogs out there that you can find from Googling
+    + Note the date of a blog post as the advice might be out of date
 
 ## Recommended resources | Online stuff
 
@@ -356,12 +398,17 @@ browseVignettes(package = "tidyverse")
   
 <div align = "center">
 
-  <img src="../figures/vignettes2.png" height=150>
+  <img src="figures/vignettes2.png" height=150>
   
 </div> 
   
 
-## Recommended resources | Finding vignettes
+## Recommended resources | Finding vignettes via Googling
+<div align = "center">
+
+  <img src="figures/vignettes.png" height=450>
+  
+</div> 
     
 
 ## Recommended resources | Books
@@ -371,11 +418,7 @@ browseVignettes(package = "tidyverse")
 + [Discovering Statistics Using R](https://www.amazon.co.uk/Discovering-Statistics-Using-Andy-Field/dp/1446200469/ref=sr_1_4?s=books&ie=UTF8&qid=1483428752&sr=1-4&keywords=andy+field) by Andy Field
     + Published in 2012 so the stuff on data manipulation, in particular, is out of date
     
-## Misc tips
-+ Print something out to the console and create an object by putting brackets round  the command
-
-```{r eval = T, echo = T}
-(x <- rnorm(10))
-```
-
-
+## Where to get the code for these slides
++ (https://github.com/eddjberry/intro-to-R-talks)[https://github.com/eddjberry/intro-to-R-talks]
++ See the file intro-to-R.Rmd in the folder intro-to-R
+    + There is also a knitted HTML version of the slides in that folder
