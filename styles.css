@@ -36,12 +36,16 @@ slides > slide.title-slide hgroup p {
   color: #151515 !important;
 }
 
-slides > slide.dark {
-  background: white !important;
-}
-
 h1, h2, h3 {
   color: #490092 !important;
+}
+
+slides > slide.dark {
+  background: #340068 !important;
+}
+
+slides > slide.dark hgroup h2 {
+  color: white !important;
 }
 
 h4 {

@@ -4,7 +4,7 @@ author: "Ed D. J. Berry"
 date: "9th January 2017"
 output: 
   ioslides_presentation:
-    logo: ../figures/logo.png
+    logo: logo.png
     css: styles.css
     widescreen: true
     smaller: false
@@ -47,9 +47,9 @@ knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
 ## Why R? | Pretty graphs
 
 <div align = "center", class="columns-2">
-  <img src="../figures/eg1.png" height=490>
+  <img src="figures/eg1.png" height=490>
 
-  <img src="../figures/eg2.png" height=470>
+  <img src="figures/eg2.png" height=470>
   
 </div>   
 
@@ -122,9 +122,9 @@ mean_x <- x %>% mean()
 x = rnorm(100) 
 y = x*3 + rnorm(100, sd = 5)
 
-df <- as_tibble(list(x = x, 
-                   y = y,
-                   treatment = rep(c("treatment_1", "treatment_2"), each = 50)))
+df <- data_frame(x = x, 
+                 y = y,
+                 treatment = rep(c("treatment_1", "treatment_2"), each = 50))
 ```
 
 ## ggplot2 | qplot
@@ -156,6 +156,7 @@ ggplot(data = df, mapping = aes(x = x, y = y, colour = treatment)) +
 ## ggplot2 | Other tips
 + The package `ggthemes` is good for providing premade plot 'styles'
 + `RColorBrewer` is useful for colours
+    + Useful info on colour in `ggplot2` [here](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/)
 + `cowplot` is good for creating grids of labelled plots for papers
     + `cowplot` [vignette](https://cran.r-project.org/web/packages/cowplot/vignettes/introduction.html)
 
@@ -173,7 +174,7 @@ ggplot(df, aes(x, y, colour = treatment)) +
 
 <div align = "center">
 
-  <img src="../figures/cowplot-eg.png" height=530>
+  <img src="figures/cowplot-eg.png" height=530>
   
 </div> 
 
@@ -197,12 +198,12 @@ ggplot(df, aes(x, y, colour = treatment)) +
 ## dplyr | Some example data
 
 ```{r}
-df1 <- as_tibble(list(id = rep(1:30, each = 2),
-                      stage = rep(c("practice", "test"), times = 30),
-                      cond1 = rnorm(60), 
-                      cond2 = rnorm(60), 
-                      group = rep(c("group1", "group2"), each = 30)
-                 ))
+df1 <- data_frame(id = rep(1:30, each = 2),
+                  stage = rep(c("practice", "test"), times = 30),
+                  cond1 = rnorm(60), 
+                  cond2 = rnorm(60), 
+                  group = rep(c("group1", "group2"), each = 30)
+                 )
 
 head(df1, 10)
 ```
@@ -272,12 +273,12 @@ head(df1_long)
 + Work very well with dplyr [(vignette)](ftp://cran.r-project.org/pub/R/web/packages/broom/vignettes/broom_and_dplyr.html)
 
 ```{r}
-year <- rep(c("five", "two"), each = 30)
-memory <- rnorm(60)
-attention <- rnorm(60)
-attainment <- memory * 1 + attention * 0.8 + rnorm(60)
 
-df2 <- as_tibble(list(id = 1:60, year = year, memory =memory, attention = attention, attainment = attainment))
+df2 <- data_frame(id = 1:60, 
+                  year = rep(c("five", "two"), each = 30), 
+                  memory = rnorm(60), 
+                  attention = rnorm(60), 
+                  attainment = memory * 1 + attention * 0.8 + rnorm(60))
 
 head(df2, 8)
 ```
@@ -318,6 +319,7 @@ df2 %>%
 + Lots of useful stuff for R Markdown 
 + Generally just nice 
 + Download here: https://www.rstudio.com/products/rstudio/download/
++ Some [tips](https://www.r-bloggers.com/rstudio-ide-easy-tricks-you-mightve-missed/) for using R Studio
 
 ## General tips | R Projects
 + Great for organising bits of code related to a single project 
@@ -398,7 +400,7 @@ browseVignettes(package = "tidyverse")
   
 <div align = "center">
 
-  <img src="../figures/vignettes2.png" height=150>
+  <img src="figures/vignettes2.png" height=150>
   
 </div> 
   
@@ -406,7 +408,7 @@ browseVignettes(package = "tidyverse")
 ## Recommended resources | Finding vignettes via Googling
 <div align = "center">
 
-  <img src="../figures/vignettes.png" height=450>
+  <img src="figures/vignettes.png" height=450>
   
 </div> 
     
@@ -418,7 +420,20 @@ browseVignettes(package = "tidyverse")
 + [Discovering Statistics Using R](https://www.amazon.co.uk/Discovering-Statistics-Using-Andy-Field/dp/1446200469/ref=sr_1_4?s=books&ie=UTF8&qid=1483428752&sr=1-4&keywords=andy+field) by Andy Field
     + Published in 2012 so the stuff on data manipulation, in particular, is out of date
     
+## Misc tips
++ Find out all the stuff (e.g. functions) in a package loaded in with `library()`
+    + `ls("package:dplyr")`
++ Show the documentation for a function
+    + `?select`
++ Save and object and also print it to the console
+    + `(x <- rnorm(10))`
++ Shortcut for `<-`
+    + `Alt`+`-`
+        + You can also just use `=` for assignment in R but `<-` is more common
++ Re-run the code that was last run (great when, e.g., developing a plot)
+    + `Ctrl`+`Shift`+`P`
+    
 ## Where to get the code for these slides
-+ (https://github.com/eddjberry/intro-to-R-talks)[https://github.com/eddjberry/intro-to-R-talks]
-+ See the file intro-to-R.Rmd in the folder intro-to-R
-    + There is also a knitted HTML version of the slides in that folder
++ [https://github.com/eddjberry/intro-to-R-talks](https://github.com/eddjberry/intro-to-R-talks)
++ See the file intro-to-R.Rmd
+    + There is also a knitted HTML version of the slides on GitHub
