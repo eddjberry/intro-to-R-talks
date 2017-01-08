@@ -311,7 +311,8 @@ df2 %>%
 
 `` `r inline_expr("nrow(wide)")` `` participants took part in Experiment 1 (Mean age = `` `r        inline_expr("round(mean(wide$age), 2)")` ``, SD = `` `r  inline_expr("round(sd(wide$age), 2)")` ``). 
   
-\     
+\  
+
 + See [here](https://github.com/eddjberry/cutoff) for a useful function I've written for rounding values in R Markdown
 
 ## General tips | R Studio
@@ -372,6 +373,7 @@ source("../scripts/data-processing.R")
     + [Writing Functions in R](https://www.datacamp.com/courses/writing-functions-in-r)
     + [Reporting with R Markdown](https://www.datacamp.com/courses/reporting-with-r-markdown)
 + Some of the courses can be tried for free 
++ Free when used for teaching (see [here](https://www.datacamp.com/groups/education))
 
 ## Recommended resources | Online stuff
 + [Coursera Data Science Specialisation](https://www.coursera.org/specializations/jhu-data-science/1?utm_medium=courseDescripTop)
@@ -382,7 +384,7 @@ source("../scripts/data-processing.R")
     + Lots of good blogs accompany package updates. 
     
 ## Recommended resources | Online stuff
-+ Stack Overflow
++ [Stack Overflow](http://stackoverflow.com/tags/r/info)
     + You'll end up there by Googling a question
 + [R Studio cheatsheets](https://www.rstudio.com/resources/cheatsheets/)
 + R Studio R Markdown [website](http://rmarkdown.rstudio.com/)
