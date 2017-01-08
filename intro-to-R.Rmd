@@ -231,7 +231,7 @@ sum_stats
 + `purrr` is a package for 'functional programming'
 + The functions you're likely to use most are the `map()` functions
     + Apply a function to a list, vector or dataframe
-    + Have versions where you specific the class of object you're expecting back
+    + Have versions where you specify the class of the object you're expecting back
         + 'Safer' than the `apply` family
             + Either work or break with an informative error message
 + Lots of other functions that are useful for writing your own functions
@@ -361,6 +361,18 @@ source("../scripts/data-processing.R")
 + However, don't just settle for whatever worked first. Try to work out the best way to do something
     + 'If you aren't getting frustrated you aren't learning' - Hadley Wickham 
 + Trying to improve old code when you revisit is a useful exercise
+
+## General tips | Misc tips
++ Find out all the stuff (e.g. functions) in a package loaded in with `library()`
+    + `ls("package:dplyr")`
++ Show the documentation for a function
+    + `?select`
++ Save and object and also print it to the console
+    + `(x <- rnorm(10))`
++ Shortcut for `<-`
+    + `Alt`+`-`
++ Re-run the code that was last run (great when, e.g., developing a plot)
+    + `Ctrl`+`Shift`+`P`
     
 # Recommended resources
 
@@ -421,19 +433,6 @@ browseVignettes(package = "tidyverse")
 + [Dynamic Documents with R and Knitr](https://www.amazon.co.uk/Dynamic-Documents-knitr-Second-Chapman/dp/1498716962/ref=asap_bc?ie=UTF8) by Yihui Xie
 + [Discovering Statistics Using R](https://www.amazon.co.uk/Discovering-Statistics-Using-Andy-Field/dp/1446200469/ref=sr_1_4?s=books&ie=UTF8&qid=1483428752&sr=1-4&keywords=andy+field) by Andy Field
     + Published in 2012 so the stuff on data manipulation, in particular, is out of date
-    
-## Misc tips
-+ Find out all the stuff (e.g. functions) in a package loaded in with `library()`
-    + `ls("package:dplyr")`
-+ Show the documentation for a function
-    + `?select`
-+ Save and object and also print it to the console
-    + `(x <- rnorm(10))`
-+ Shortcut for `<-`
-    + `Alt`+`-`
-        + You can also just use `=` for assignment in R but `<-` is more common
-+ Re-run the code that was last run (great when, e.g., developing a plot)
-    + `Ctrl`+`Shift`+`P`
     
 ## Where to get the code for these slides
 + [https://github.com/eddjberry/intro-to-R-talks](https://github.com/eddjberry/intro-to-R-talks)
